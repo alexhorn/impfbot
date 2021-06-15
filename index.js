@@ -101,12 +101,14 @@ async function check () {
       lastDate: DateTime.now().toISODate(),
       lastTime: '00:00'
     })
+    const before = Date.now()
     const resp = await nodeFetch(`https://impfzentren.bayern/api/v1/citizens/${citizen}/appointments/next?` + params.toString(), {
       headers: {
         ...headers,
         'Authorization': `Bearer ${access_token}`
       }
     })
+    console.log(`Check took ${Date.now() - before} ms`)
 
     if (resp.status === 404) {
       console.log('Keine Impftermine verfügbar ... ')
